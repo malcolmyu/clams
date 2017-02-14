@@ -1,0 +1,9 @@
+<view class="container">
+  <import src="/components/UserInfo/UserInfo" />
+  <import src="/components/Toast/Toast" />
+  <text class="title">欢迎使用 YChat!</text>
+  <text class="sub-title">本页面由两个组件构成，UserInfo 和 Toast，打开源码你就会发现，它们的使用、声明都非常简单明了。</text>
+  <UserInfo defaultName="{{state.name}}" getCurrentName="getName"/>
+  <Toast show="{{state.show}}" content="{{state.name}}" duration="{{300}}" />
+  <text class="next-page" bindtap="openTodo">进入下一页</text>
+</view>

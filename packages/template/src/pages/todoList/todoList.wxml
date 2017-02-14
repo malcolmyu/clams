@@ -1,0 +1,17 @@
+<view>
+  <import src="/components/TodoItem/TodoItem" />
+  <block wx:for="{{state.list}}" wx:key="x">
+    <view class="group-header">
+      <text class="name">分组 {{item.name}}</text>
+      <text class="new" bindtap="addNewItem" data-idx="{{index}}">+ 添加新项目</text>
+    </view>
+    <block wx:for="{{item.list}}" wx:key="x" wx:for-index="idx">
+      <TodoItem
+        onRemove="onRemove"
+        idx="{{item.key}}"
+        defaultValue="{{item.text}}"
+      />
+    </block>
+  </block>
+  <button type="primary" bindtap="addNewGroup" style="margin: 10px;">添加新分组</button>
+</view>

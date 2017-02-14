@@ -1,0 +1,17 @@
+.user-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  padding: 10px;
+
+  .user-description {
+    font-size: 18px;
+    line-height: 32px;
+  }
+
+  .random-button {
+    color: #1ba9ba;
+  }
+}

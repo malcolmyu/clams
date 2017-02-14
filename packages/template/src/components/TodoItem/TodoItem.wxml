@@ -1,0 +1,7 @@
+<view class="section">
+  <view class="toggle" bindtap="toggleCheckbox">
+    <icon type="{{state.type}}" size="32" color="{{state.color}}"/>
+  </view>
+  <input placeholder="请输入列表内容" bindinput="onInput" value="{{state.value}}" />
+  <button type="warn" bindtap="onRemove">删除</button>
+</view>

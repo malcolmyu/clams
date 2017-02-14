@@ -1,0 +1,3 @@
+<view class="toast-container {{state.show ? '' : 'hide'}}">
+  <text class="self-toast">{{props.content}}</text>
+</view>

@@ -1,0 +1,11 @@
+<view class="user-info">
+  <import src="/components/Tag/Tag"/>
+  <icon type="success" size="64"/>
+  <view class="user-description">
+    <view>
+      <label>姓名: </label>
+      <text>{{state.name}}</text>
+    </view>
+    <text class="random-button" bindtap="randomName">点击随机一个名字</text>
+  </view>
+</view>
