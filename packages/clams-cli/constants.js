@@ -5,10 +5,10 @@ export const R_M_COMMENT = /\/\s*\*(?:(?!(\*\s*\/)).|[\n\r])*(?:\*\s*\/)/g;
 export const ARG_NAME = `__$$yaa`;
 
 export const INCEPTION_INIT = `
-export const function insertChildren(_y) {
+exports.insertChildren = function (_y) {
   return 'IN_EOF';
 };
-export const function insertRequire(_y) {
+exports.insertRequire = function (_y) {
   return 'RE_EOF';
 };
 `;

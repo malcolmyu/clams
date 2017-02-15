@@ -1,4 +1,4 @@
-import { listComponentMap, listPlugins } from './index';
+import { listComponentMap, listPlugins } from './clams';
 
 export default function(instance, isPage) {
   const map = listComponentMap();
@@ -29,11 +29,14 @@ export default function(instance, isPage) {
       }
 
       if (typeof p.register === 'function') {
-        p.register.call({
+        p.register.call(
           instance,
-          emitter: instance._pluginsEmitter,
-          name
-        });
+          {
+            emitter: instance._pluginsEmitter,
+            name,
+            plugins
+          }
+        );
       }
     });
   }

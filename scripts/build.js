@@ -27,7 +27,7 @@ spawnSync('babel', ['packages/clams-cli', '--out-dir', 'lib/clams-cli']);
 if (program.watch) {
   console.log('开启编译监听……'.blue);
   chokidar.watch('packages').on('change', (filePath) => {
-    const reCLI = /ychat-cli/;
+    const reCLI = /clams-cli/;
     const targetPath = filePath.replace(/^packages/, 'lib');
 
     if (reCLI.test(filePath)) {

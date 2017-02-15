@@ -1,7 +1,7 @@
 import { types, callLifecycle, deepEqual } from './utils';
 import createEventManager from './createEventManager';
 import applyPlugins from './plugin';
-import { listComponentMap } from './index';
+import { listComponentMap } from './clams';
 
 class Component {
   constructor(props, isPage) {

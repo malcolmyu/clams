@@ -60,7 +60,7 @@ const presetParseAlias = ({ t, from, options, useClams }) => path => {
       const parsedPath = parseAlias(node.value, from, options);
       path.replaceWith(t.stringLiteral(parsedPath));
 
-      if (node.value === 'clams') {
+      if (node.value === 'clams' && useClams) {
         useClams.use = true;
       }
     }
@@ -115,12 +115,12 @@ const clamsPreset = (transformStatus, from, options) => (babel) => {
 
 const argName = C.ARG_NAME;
 const buildApp = template(`
-import Clams from './clams/index';
-import { insertChildren, insertRequire } from './_inception.js';
+// const Clams = require('./clams/index');
+const inception = require('./_inception.js');
 
+const { insertChildren, insertRequire } = inception;
 const ${argName} = $arg;
 
-const ${argName} = $arg;
 const onLaunch = ${argName}.onLaunch;
 ${argName}.onLaunch = function() {
     if (typeof onLaunch === 'function') {

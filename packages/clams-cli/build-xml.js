@@ -106,13 +106,13 @@ function getInception(jsContent, compName) {
   });
 
   return `
-\n_y.inception['${compName}'] = function() {
+\n_y.inceptionRegister('${compName}', function() {
     var _t = this;
     ${bindFunList.join(';\n')}
     return {
         ${jsContent.join(',\n')}
     }
-}
+});
 `
 }
 

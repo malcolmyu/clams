@@ -127,7 +127,7 @@ export function lifecycleMap(comp, ctx, name) {
   }
 
   lifecycle.forEach(name => {
-    if (exports.isFunction(comp[name])) {
+    if (types.isFunction(comp[name])) {
       setCtxName(name);
     }
   });
