@@ -4,8 +4,6 @@
  * 将 packages 打到 lib 中去
  */
 require('colors');
-const fs = require('fs');
-const path = require('path');
 const spawnSync = require('child_process').spawnSync;
 const program = require('commander');
 const chokidar = require('chokidar');
@@ -37,5 +35,5 @@ if (program.watch) {
     }
 
     console.log(filePath, ' -> ', targetPath);
-  })
+  });
 }

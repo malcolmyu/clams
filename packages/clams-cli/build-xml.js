@@ -8,7 +8,6 @@ import { preParseJSContent, babelTransform } from './build-mix';
 import { clerk, isFromEntry } from './utils';
 import buildJS from './build-js';
 
-const babel = require('babel-core');
 const template = require('babel-template');
 
 const reEvent = /^(bind|catch)\w+/;
@@ -113,7 +112,7 @@ function getInception(jsContent, compName) {
         ${jsContent.join(',\n')}
     }
 });
-`
+`;
 }
 
 /**
@@ -190,7 +189,7 @@ function parseBind(bindData) {
         if (usedKeys.indexOf(loop.indexKey) > -1) {
           throw new Error(`在循环嵌套中存在相同的 index: ${loop.indexKey}, 生成组件时将产生错误`);
         }
-        usedKeys.push(loop.indexKey );
+        usedKeys.push(loop.indexKey);
 
         keyWithIndex += `['+${loop.indexKey}+']`;
         dataWithIndex += `[${loop.indexKey}]`;
@@ -295,11 +294,11 @@ return {
 ${propsExpression}
 })`;
 
-      const handleKey = handleReserveWord(loopItem.key, loopItem);
+      handleReserveWord(loopItem.key, loopItem);
       if (i > 0) {
-        propsExpression = `return ${propsExpression}`
+        propsExpression = `return ${propsExpression}`;
       } else {
-        propsExpression = `${key}:${propsExpression}`
+        propsExpression = `${key}:${propsExpression}`;
       }
     }
 
@@ -344,9 +343,9 @@ function parseItFunction(value) {
 }
 
 function parseItExpression(content, loopStack) {
-  let matched;
+  let matched = content.match(reAllIte);
   // 全量插值的需要返回对应的属性
-  if (matched = content.match(reAllIte)) {
+  if (matched) {
     return parseIte(matched[1], loopStack);
   }
 
@@ -355,7 +354,7 @@ function parseItExpression(content, loopStack) {
 
   const result = [];
 
-  while((matched = reIte.exec(content)) != null) {
+  while ((matched = reIte.exec(content)) != null) {
     const [match, ite] = matched;
     const parsed = parseIte(ite, loopStack);
     // 截取前面的字符串，比如 "{{data1}}abc{{data2}}"，就需要截取 abc 存起来
@@ -367,7 +366,7 @@ function parseItExpression(content, loopStack) {
   }
 
   if (lastIndex < content.length - 1) {
-    result.push(`"${content.substr(lastIndex + 1)}"`)
+    result.push(`"${content.substr(lastIndex + 1)}"`);
   }
 
   return result.join('+');
@@ -421,7 +420,7 @@ const presetParseScope = loopStack => babel => {
     }
   };
 
-  return { visitor }
+  return { visitor };
 };
 
 async function parseScript(content, from, options, isEntry) {

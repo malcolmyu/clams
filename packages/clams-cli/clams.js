@@ -35,7 +35,7 @@ program
   .option('-w, --watch', '编译当前项目，并自动监听文件改动')
   .option('--config', '选择对应的配置文件')
   .action(options => {
-    parseConfig(options).then(watch).catch(e => clerk.error(e.stack))
+    parseConfig(options).then(watch).catch(e => clerk.error(e.stack));
   });
 
 program.parse(process.argv);

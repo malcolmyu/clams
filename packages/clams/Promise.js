@@ -7,7 +7,7 @@ function objectOrFunction(x) {
 }
 
 let len = 0;
-let customSchedulerFn = undefined;
+let customSchedulerFn;
 
 let asap = function asap(callback, arg) {
   queue[len] = callback;
@@ -37,9 +37,7 @@ function useSetTimeout() {
   // Store setTimeout reference so es6-promise will be unaffected by
   // other code modifying setTimeout (like sinon.useFakeTimers())
   let globalSetTimeout = setTimeout;
-  return function () {
-    return globalSetTimeout(flush, 1);
-  };
+  return () => globalSetTimeout(flush, 1);
 }
 
 let queue = new Array(1000);
@@ -73,11 +71,9 @@ function then(onFulfillment, onRejection) {
   let _state = parent._state;
 
   if (_state) {
-    (function () {
+    (() => {
       let callback = _arguments[_state - 1];
-      asap(function () {
-        return invokeCallback(_state, child, callback, parent._result);
-      });
+      asap(() => invokeCallback(_state, child, callback, parent._result));
     })();
   } else {
     subscribe(parent, child, onFulfillment, onRejection);
@@ -87,7 +83,6 @@ function then(onFulfillment, onRejection) {
 }
 
 function resolve(object) {
-  /*jshint validthis:true */
   let Constructor = this;
 
   if (object && typeof object === 'object' && object.constructor === Constructor) {
@@ -110,7 +105,7 @@ let REJECTED = 2;
 let GET_THEN_ERROR = new ErrorObject();
 
 function selfFulfillment() {
-  return new TypeError("You cannot resolve a promise with itself");
+  return new TypeError('You cannot resolve a promise with itself');
 }
 
 function cannotReturnOwn() {
@@ -135,9 +130,9 @@ function tryThen(then, value, fulfillmentHandler, rejectionHandler) {
 }
 
 function handleForeignThenable(promise, thenable, then) {
-  asap(function (promise) {
+  asap((promise) => {
     let sealed = false;
-    let error = tryThen(then, thenable, function (value) {
+    let error = tryThen(then, thenable, (value) => {
       if (sealed) {
         return;
       }
@@ -147,7 +142,7 @@ function handleForeignThenable(promise, thenable, then) {
       } else {
         fulfill(promise, value);
       }
-    }, function (reason) {
+    }, (reason) => {
       if (sealed) {
         return;
       }
@@ -169,9 +164,9 @@ function handleOwnThenable(promise, thenable) {
   } else if (thenable._state === REJECTED) {
     _reject(promise, thenable._result);
   } else {
-    subscribe(thenable, undefined, function (value) {
+    subscribe(thenable, undefined, (value) => {
       return _resolve(promise, value);
-    }, function (reason) {
+    }, (reason) => {
       return _reject(promise, reason);
     });
   }
@@ -257,9 +252,9 @@ function publish(promise) {
     return;
   }
 
-  let child = undefined,
-    callback = undefined,
-    detail = promise._result;
+  let child;
+  let callback;
+  let detail = promise._result;
 
   for (let i = 0; i < subscribers.length; i += 3) {
     child = subscribers[i];
@@ -291,11 +286,11 @@ function tryCatch(callback, detail) {
 }
 
 function invokeCallback(settled, promise, callback, detail) {
-  let hasCallback = isFunction(callback),
-    value = undefined,
-    error = undefined,
-    succeeded = undefined,
-    failed = undefined;
+  let hasCallback = isFunction(callback);
+  let value;
+  let error;
+  let succeeded;
+  let failed;
 
   if (hasCallback) {
     value = tryCatch(callback, detail);
@@ -416,7 +411,7 @@ function validationError() {
   return new Error('Array Methods must be provided an Array');
 }
 
-Enumerator.prototype._enumerate = function () {
+Enumerator.prototype._enumerate = function() {
   let length = this.length;
   let _input = this._input;
 
@@ -425,9 +420,9 @@ Enumerator.prototype._enumerate = function () {
   }
 };
 
-Enumerator.prototype._eachEntry = function (entry, i) {
-  let c = this._instanceConstructor;
-  let resolve$$ = c.resolve;
+Enumerator.prototype._eachEntry = function(entry, i) {
+  let C = this._instanceConstructor;
+  let resolve$$ = C.resolve;
 
   if (resolve$$ === resolve) {
     let _then = getThen(entry);
@@ -437,12 +432,12 @@ Enumerator.prototype._eachEntry = function (entry, i) {
     } else if (typeof _then !== 'function') {
       this._remaining--;
       this._result[i] = entry;
-    } else if (c === Promise) {
-      let promise = new c(noop);
+    } else if (C === Promise) {
+      let promise = new C(noop);
       handleMaybeThenable(promise, entry, _then);
       this._willSettleAt(promise, i);
     } else {
-      this._willSettleAt(new c(function (resolve$$) {
+      this._willSettleAt(new C((resolve$$) => {
         return resolve$$(entry);
       }), i);
     }
@@ -451,7 +446,7 @@ Enumerator.prototype._eachEntry = function (entry, i) {
   }
 };
 
-Enumerator.prototype._settledAt = function (state, i, value) {
+Enumerator.prototype._settledAt = function(state, i, value) {
   let promise = this.promise;
 
   if (promise._state === PENDING) {
@@ -469,12 +464,12 @@ Enumerator.prototype._settledAt = function (state, i, value) {
   }
 };
 
-Enumerator.prototype._willSettleAt = function (promise, i) {
+Enumerator.prototype._willSettleAt = function(promise, i) {
   let enumerator = this;
 
-  subscribe(promise, undefined, function (value) {
+  subscribe(promise, undefined, function(value) {
     return enumerator._settledAt(FULFILLED, i, value);
-  }, function (reason) {
+  }, function(reason) {
     return enumerator._settledAt(REJECTED, i, reason);
   });
 };
@@ -484,15 +479,14 @@ function all(entries) {
 }
 
 function race(entries) {
-  /*jshint validthis:true */
   let Constructor = this;
 
   if (!isArray(entries)) {
-    return new Constructor(function (_, reject) {
+    return new Constructor(function(_, reject) {
       return reject(new TypeError('You must pass an array to race.'));
     });
   } else {
-    return new Constructor(function (resolve, reject) {
+    return new Constructor(function(resolve, reject) {
       let length = entries.length;
       for (let i = 0; i < length; i++) {
         Constructor.resolve(entries[i]).then(resolve, reject);
@@ -502,7 +496,6 @@ function race(entries) {
 }
 
 function reject(reason) {
-  /*jshint validthis:true */
   let Constructor = this;
   let promise = new Constructor(noop);
   _reject(promise, reason);

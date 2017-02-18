@@ -48,16 +48,16 @@ export function parseAlias(importPath, from, options) {
     const matched = [];
     // 视情况补全 file
     switch (true) {
-      case /\/$/.test(file):
-        matched.push(`${file}index.js`);
-        break;
-      case /\.js$/.test(file):
-        matched.push(file);
-        break;
-      default:
-        matched.push(`${file}/index.js`);
-        matched.push(`${file}.js`);
-        break;
+    case /\/$/.test(file):
+      matched.push(`${file}index.js`);
+      break;
+    case /\.js$/.test(file):
+      matched.push(file);
+      break;
+    default:
+      matched.push(`${file}/index.js`);
+      matched.push(`${file}.js`);
+      break;
     }
 
     let i = 0;

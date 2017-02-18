@@ -3,7 +3,7 @@ const componentMap = {};
 const plugins = [];
 
 export function register(name, Component, path) {
-  if(inception[name]) {
+  if (inception[name]) {
     Component.prototype.children = inception[name];
   }
   componentMap[name] = {

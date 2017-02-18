@@ -1,5 +1,4 @@
 import { types, getPath, buildListItem, lifecycleMap } from './utils';
-const Component = require('./Component');
 
 // 构建一个所有 view 公用的通知系统
 // const eventEmitter = createEventManager();
@@ -47,7 +46,7 @@ export default function createPage(ComponentClass) {
     this.root._init('');
 
     if (types.isFunction(this.root.onLoad)) {
-        this.root.onLoad.apply(this, args);
+      this.root.onLoad.apply(this, args);
     }
     if (this.root._pluginsEmitter) {
       this.root._pluginsEmitter.$emit('onLoad');
@@ -55,7 +54,5 @@ export default function createPage(ComponentClass) {
     lifecycleMap(this.root, config);
   };
 
-
   return config;
 };
-

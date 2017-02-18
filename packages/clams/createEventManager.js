@@ -54,5 +54,5 @@ export default function createEventManager(ctx) {
     $emit,
     $off,
     $once
-  }
+  };
 };

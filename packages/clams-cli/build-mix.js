@@ -1,5 +1,4 @@
 import systemPath from 'path';
-import { SLOGAN } from './constants';
 
 const babel = require('babel-core');
 const template = require('babel-template');

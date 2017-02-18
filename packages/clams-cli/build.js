@@ -12,6 +12,6 @@ export default async function build(options) {
   await copyRunTimeFile(path.join(__dirname, '../clams'), path.join(options.dist, 'clams'));
 
   for (let i = 0; i < length; i++) {
-    await buildFile('build', options, fileList[i])
+    await buildFile('build', options, fileList[i]);
   }
 }

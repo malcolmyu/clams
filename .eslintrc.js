@@ -2,7 +2,7 @@ module.exports = {
   "extends": "standard",
   "installedESLint": true,
   "rules": {
-    "indent": ["error", 4],
+    "indent": ["error", 2],
     "comma-dangle": ["error", "never"],
     "no-param-reassign": ["off"],
     "no-plusplus": ["off"],

@@ -16,4 +16,4 @@ export default async ({ folder = '' }) => {
     spinner.text = `创建项目失败！错误信息为：${e.message}`;
     spinner.fail();
   }
-}
+};

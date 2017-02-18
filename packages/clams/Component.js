@@ -108,7 +108,7 @@ class Component {
 
       child.keyPath = getKeyPath(index, i);
 
-      nextList.push(this._updateChild(key, component, child))
+      nextList.push(this._updateChild(key, component, child));
     });
 
     // 这里剩下的 map 就需要销毁了
@@ -171,9 +171,9 @@ class Component {
     // 组件的利用原理：
     // 1. 用户写了 key，那是坠吼的，直接用上个 key 相同的组件进行更新；
     // 2. 用户没写 key，那没办法，总不能全部删了更新吧，可以采用 index 来进行更新；
-    const nextList = !list || Object.keys(map).length ?
-      this._updateListByStrategy('key', key, map, nextConfig, config, unKeyedItems, index) :
-      this._updateListByStrategy('index', key, map, nextConfig, config, list, index);
+    const nextList = !list || Object.keys(map).length
+      ? this._updateListByStrategy('key', key, map, nextConfig, config, unKeyedItems, index)
+      : this._updateListByStrategy('index', key, map, nextConfig, config, list, index);
 
     // 最终还是要把它更新到页面的 data 上去
     const nextData = [];
@@ -218,7 +218,7 @@ class Component {
             [`${path}.props`]: props,
             [`${path}.state`]: state
           };
-          this.page.updateData(nextData)
+          this.page.updateData(nextData);
         }
       }
     });

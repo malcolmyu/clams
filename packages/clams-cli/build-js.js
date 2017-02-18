@@ -30,23 +30,23 @@ export default async function buildJS(options, from, to, opt) {
   let result;
 
   switch (from.relative) {
-    case 'app.js':
-      result = parseAppEntryJS(content, options, from).code;
-      const incPath = path.join(to.dir, '_inception.js');
-      try {
-        await ep(fs.stat)(incPath);
-      } catch (e) {
-        await ep(mkdirp)(to.dir);
-        await ep(fs.writeFile)(incPath, INCEPTION_INIT, 'utf8');
-      }
-      break;
-    case '_inception.js':
-      result = parseInceptionJS(content, opt).code;
-      break;
-    default:
-      const code = preParseJSContent(content, options, from).code;
-      result = await postParseJSContent(code);
-      break;
+  case 'app.js':
+    result = parseAppEntryJS(content, options, from).code;
+    const incPath = path.join(to.dir, '_inception.js');
+    try {
+      await ep(fs.stat)(incPath);
+    } catch (e) {
+      await ep(mkdirp)(to.dir);
+      await ep(fs.writeFile)(incPath, INCEPTION_INIT, 'utf8');
+    }
+    break;
+  case '_inception.js':
+    result = parseInceptionJS(content, opt).code;
+    break;
+  default:
+    const code = preParseJSContent(content, options, from).code;
+    result = await postParseJSContent(code);
+    break;
   }
   await ep(mkdirp)(to.dir);
   await ep(fs.writeFile)(to.file, result, 'utf8');
