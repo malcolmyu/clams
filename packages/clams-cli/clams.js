@@ -15,7 +15,7 @@ program
   .alias('i')
   .description('在当前路径初始化项目，或指定文件夹名称 folder')
   .action(folder => {
-    parseConfig({ folder }).then(init).catch(e => clerk.error(e.stack))
+    parseConfig({ folder }).then(init).catch(e => clerk.error(e.stack));
   });
 
 // program
@@ -33,6 +33,7 @@ program
   .option('--src [dir]', '源码目录，默认为 src 文件夹')
   .option('--dist [dir]', '目标目录，默认为 dist 文件夹')
   .option('-w, --watch', '编译当前项目，并自动监听文件改动')
+  .option('-c, --clear', '构建前清理目标目录')
   .option('--config', '选择对应的配置文件')
   .action(options => {
     parseConfig(options).then(watch).catch(e => clerk.error(e.stack));

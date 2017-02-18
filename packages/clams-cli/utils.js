@@ -91,7 +91,7 @@ export async function traverseDirectory(root, extname, getFileContent) {
     const file = path.join(root, fileList[i]);
 
     // 默认不处理 '.' 开头的文件或文件夹
-    if (!/^\./.test(file)) {
+    if (!/^\./.test(fileList[i])) {
       const stat = await ep(fs.stat)(file);
 
       if (stat.isDirectory()) {

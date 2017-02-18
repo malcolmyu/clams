@@ -75,9 +75,10 @@ export function parseAlias(importPath, from, options) {
 
     if (accessFile) return importPath;
     // 没有找到对应的 js，应该从 alias 里面找
-    const { alias } = options;
+    const { alias = {} } = options;
     // 注入默认 alias
     alias.clams = path.join(options.src, 'clams/index.js');
+    options.alias = alias;
 
     const keys = Object.keys(alias);
     // TODO: 可能需要进行特殊字符替换，比如 '.'

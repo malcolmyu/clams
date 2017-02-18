@@ -1,4 +1,5 @@
 import chokidar from 'chokidar';
+import del from 'del';
 import 'colors';
 
 import build from './build';
@@ -6,6 +7,10 @@ import buildFile from './build-file';
 import { clerk } from './utils';
 
 export default async function watch(options) {
+  if (options.clear) {
+    await del(options.dist);
+  }
+
   await build(options);
 
   if (options.watch) {

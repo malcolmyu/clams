@@ -5,7 +5,7 @@ import ep from 'es6-promisify';
 import buildXML from './build-xml';
 import buildJS from './build-js';
 import buildStyle from './build-style';
-import buildJSON from './build-json';
+import buildThrough from './build-through';
 import { clerk, getDistPath, parsePath } from './utils';
 
 let styleHasBuild = false;
@@ -47,10 +47,8 @@ async function buildFileByExtension(event, options, fromPath) {
     case '.wxml':
       await buildXML(options, from, to);
       break;
-    case '.json':
-      await buildJSON(options, from, to);
-      break;
     default:
+      await buildThrough(options, from, to);
       break;
     }
   } catch (e) {

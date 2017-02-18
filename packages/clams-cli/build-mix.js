@@ -114,7 +114,6 @@ const clamsPreset = (transformStatus, from, options) => (babel) => {
 
 const argName = C.ARG_NAME;
 const buildApp = template(`
-// const Clams = require('./clams/index');
 const inception = require('./_inception.js');
 
 const { insertChildren, insertRequire } = inception;
@@ -128,7 +127,7 @@ ${argName}.onLaunch = function() {
     insertRequire();
 };
 
-${argName}.Clams = Clams;
+${argName}.Clams = require('./clams/index');
 insertChildren(${argName}.Clams);
 
 App(${argName});
