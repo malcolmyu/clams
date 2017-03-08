@@ -1,6 +1,6 @@
 import fs from 'fs';
 import less from 'less';
-import sass from 'node-sass-china';
+import sass from 'node-sass';
 import ep from 'es6-promisify';
 import mkdirp from 'mkdirp';
 
